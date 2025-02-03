@@ -1,0 +1,21 @@
+stages:
+  - build
+  - test
+
+variables:
+  DOCKER_DRIVER: overlay2
+
+before_script:
+  - echo "Starting CI/CD Pipeline..."
+
+build-backend:
+  stage: build
+  script:
+    - echo "Building Spring Boot backend..."
+    - docker build -t spring-app ./emp_backend
+
+build-frontend:
+  stage: build
+  script:
+    - echo "Building Angular frontend..."
+    - docker build -t angular-app ./employee frontend final
