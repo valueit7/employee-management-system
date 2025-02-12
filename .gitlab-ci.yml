@@ -1,21 +1,63 @@
-stages:
-  - build
-  - test
+image: ubuntu:latest
+
+services:
+  - docker:dind
 
 variables:
   DOCKER_DRIVER: overlay2
+#  REGISTRY: registry.gitlab.com/aymch/employee-management-system
+#  MYSQL_IMAGE: $REGISTRY/mysql
+#  BACKEND_IMAGE: $REGISTRY/spring-app
+#  FRONTEND_IMAGE: $REGISTRY/angular-app
+
+#before_script:
+#  - echo "Logging in to GitLab Container Registry..."
+#  - echo "Installing Docker Compose..."
+#  - apk add --no-cache docker-compose
+#  - echo "Logging in to GitLab Container Registry..."
+#  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
 before_script:
-  - echo "Starting CI/CD Pipeline..."
+  - echo "Forcing bash shell..."
+  - export SHELL=/bin/bash
+  - which bash
+  - bash --version
+#  - echo "Logging in to GitLab Container Registry..."
+  - apt-get update && apt-get install -y docker-compose  # Use apt-get to install docker-compose
+#  - echo "Logging in to GitLab Container Registry..."
+#  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  - echo "Available shells:"
+  - cat /etc/shells
 
-build-backend:
+
+
+stages:
+  - build
+  - deploy
+
+# Build images with Docker Compose
+build:
   stage: build
   script:
-    - echo "Building Spring Boot backend..."
-    - docker build -t spring-app ./emp_backend
+    - docker-compose -f docker-compose.yml build
+#    - docker tag spring-app $REGISTRY/spring-app:$CI_COMMIT_REF_NAME
+#    - docker tag angular-app $REGISTRY/angular-app:$CI_COMMIT_REF_NAME
+#    - docker push $REGISTRY/spring-app:$CI_COMMIT_REF_NAME
+#    - docker push $REGISTRY/angular-app:$CI_COMMIT_REF_NAME
+  tags:
+    - localrunner
+    - localshell
+    
 
-build-frontend:
-  stage: build
+# Deploy images locally
+deploy:
+  stage: deploy
   script:
-    - echo "Building Angular frontend..."
-    - docker build -t angular-app ./employee frontend final
+    - echo "Deploying to Docker Desktop..."
+    - docker-compose -f docker-compose.yml up -d  
+  tags:
+    - localrunner
+    - localshell   
+  only:
+    - main
+
