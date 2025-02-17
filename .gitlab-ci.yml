@@ -61,3 +61,17 @@
 #  only:
 #    - main
 
+
+
+
+
+
+image: ubuntu:latest
+
+stages:
+  - noop
+
+noop_job:
+  stage: noop
+  script:
+    - echo "This job does nothing."
