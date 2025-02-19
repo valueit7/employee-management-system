@@ -59,9 +59,11 @@ deploy:
     - chmod +x generate_release.sh
     - ./generate_release.sh
     - echo "Generated release notes:"
-    - cat release_notes.md  # Vérifie que le fichier est bien généré
+    - cat release_notes.md > release_notes.md # Vérifie que le fichier est bien généré et le sauvegarde  
     - echo "Deploying to Docker Desktop..."
-    - docker-compose -f docker-compose.yml up -d   
+    - docker-compose -f docker-compose.yml up -d
+    - echo "Copying release notes to container..."
+    - docker cp release_notes.md springboot:/app/uploads/release_notes.md # Copie du fichier vers le conteneur   
     - echo "Checking if release notes are in the container..."
     - docker exec -it springboot cat /app/release_notes/release_notes.md  # Vérifie le fichier dans le conteneur  
   tags:
@@ -69,9 +71,7 @@ deploy:
     - localshell   
   only:
     - main
-  artifacts:
-    paths:
-      - release_notes.md   # S'assurer que le fichier release_notes.md est bien généré
+  
 
 
 
