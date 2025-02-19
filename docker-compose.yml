@@ -32,7 +32,7 @@ services:
       - springboot-mysql
     volumes:
       - app-data:/app/uploads
-      - release-notes:/app/release_notes  # Monte le fichier release dans le conteneur
+      - release-notes:/app/release_notes:rw  # Monte le fichier release dans le conteneur
 
   frontend:
     build: 
