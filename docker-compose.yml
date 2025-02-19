@@ -50,6 +50,7 @@ services:
 volumes:
   mysql-data:
   app-data:
+  release-notes:
    
 
 networks:
