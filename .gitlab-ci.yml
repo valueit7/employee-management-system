@@ -54,6 +54,8 @@ build:
 generate_release_notes:
   stage: generate_release_notes
   script:
+    - apt-get update && apt-get install -y dos2unix  # Installe dos2unix
+    - dos2unix generate_release.sh  # Convertit le fichier en format Unix
     - chmod +x generate_release.sh  # Rendre le script exécutable
     - ./generate_release.sh         # Exécuter le script de génération
   artifacts:
