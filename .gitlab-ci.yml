@@ -66,9 +66,9 @@ deploy:
     - echo "Copying release notes to container..."
     - docker cp release_notes.md springboot:/app/uploads/release_notes.md
     - echo "Setting correct file permissions..."
-    - docker exec -it springboot chmod 644 /app/uploads/release_notes.md # Permissions (lecture et écriture pour l'utilisateur, lecture pour le groupe et les autres)
+    - docker exec springboot chmod 644 /app/uploads/release_notes.md # Permissions (lecture et écriture pour l'utilisateur, lecture pour le groupe et les autres)
     - echo "Checking if release notes are in the container..."
-    - docker exec -it springboot cat /app/uploads/release_notes.md
+    - docker exec springboot cat /app/uploads/release_notes.md
   tags:
     - localrunner
     - localshell   
