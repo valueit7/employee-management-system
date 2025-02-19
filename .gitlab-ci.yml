@@ -33,7 +33,6 @@ before_script:
 
 
 stages:
-  - generate_release_notes
   - build
   - deploy
 
@@ -50,34 +49,25 @@ build:
     - localrunner
     - localshell
     
-# Génération des release notes
-generate_release_notes:
-  stage: generate_release_notes
-  script:
-    - apt-get update && apt-get install -y dos2unix  # Installe dos2unix
-    - dos2unix generate_release.sh  # Convertit le fichier en format Unix
-    - chmod +x generate_release.sh  # Rendre le script exécutable
-    - ./generate_release.sh         # Exécuter le script de génération
-  artifacts:
-    paths:
-      - release_notes.md            # Sauvegarde du fichier pour le job suivant
-  tags:
-    - localrunner
-    - localshell
 
 # Deploy images locally
 deploy:
   stage: deploy
   script:
+    - echo "Generating release notes..."
+    - dos2unix generate_release.sh
+    - chmod +x generate_release.sh
+    - ./generate_release.sh
     - echo "Deploying to Docker Desktop..."
-    - docker-compose -f docker-compose.yml up -d  
+    - docker-compose -f docker-compose.yml up -d   
   tags:
     - localrunner
     - localshell   
   only:
     - main
-  dependencies:
-    - generate_release_notes   # S'assurer que le fichier release_notes.md est bien généré
+  artifacts:
+    paths:
+      - release_notes.md   # S'assurer que le fichier release_notes.md est bien généré
 
 
 
