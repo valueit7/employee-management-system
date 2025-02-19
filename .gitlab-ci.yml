@@ -60,7 +60,7 @@ deploy:
     - chmod +x generate_release.sh
     - ./generate_release.sh
     - echo "Generated release notes:"
-    - cat release_notes.md > release_notes.md
+    - cat release_notes.md  # Affiche le contenu APRÈS l'exécution du script
     - echo "Deploying to Docker Desktop..."
     - docker-compose -f docker-compose.yml up -d
     - echo "Copying release notes to container..."
