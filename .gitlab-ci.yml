@@ -48,7 +48,8 @@ build:
   tags:
     - localrunner
     - localshell
-    
+  only:
+    - main  
 
 # Deploy images locally
 deploy:
