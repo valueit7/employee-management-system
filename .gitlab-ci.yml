@@ -24,7 +24,7 @@ before_script:
   - which bash
   - bash --version
 #  - echo "Logging in to GitLab Container Registry..."
-  - apt-get update && apt-get install -y docker compose jq curl  # Use apt-get to install docker-compose, jq et curl
+  - apt-get update && apt-get install -y docker-compose jq curl  # Use apt-get to install docker-compose, jq et curl
 #  - echo "Logging in to GitLab Container Registry..."
 #  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   - echo "Available shells:"
@@ -40,7 +40,7 @@ stages:
 build:
   stage: build
   script:
-    - docker compose -f docker-compose.yml build
+    - docker-compose -f docker-compose.yml build
 #    - docker tag spring-app $REGISTRY/spring-app:$CI_COMMIT_REF_NAME
 #    - docker tag angular-app $REGISTRY/angular-app:$CI_COMMIT_REF_NAME
 #    - docker push $REGISTRY/spring-app:$CI_COMMIT_REF_NAME
@@ -63,7 +63,7 @@ deploy:
 #    - echo "Generated release notes:"
 #    - cat release_notes.md  # Affiche le contenu APRÈS l'exécution du script
     - echo "Deploying to Docker Desktop..."
-    - docker compose -f docker-compose.yml up -d
+    - docker-compose -f docker-compose.yml up -d
 #    - echo "Copying release notes to container..."
 #    - docker cp release_notes.md springboot:/release_notes.md
 #    - echo "Setting correct file permissions..."
