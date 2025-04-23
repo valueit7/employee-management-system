@@ -29,6 +29,7 @@ before_script:
 #  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   - echo "Available shells:"
   - cat /etc/shells
+  - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
 
 
 
@@ -45,6 +46,10 @@ build:
 #    - docker tag angular-app $REGISTRY/angular-app:$CI_COMMIT_REF_NAME
 #    - docker push $REGISTRY/spring-app:$CI_COMMIT_REF_NAME
 #    - docker push $REGISTRY/angular-app:$CI_COMMIT_REF_NAME
+    - docker tag spring-app $CI_REGISTRY_IMAGE/spring-app:$CI_COMMIT_REF_NAME
+    - docker tag angular-app $CI_REGISTRY_IMAGE/angular-app:$CI_COMMIT_REF_NAME
+    - docker push $CI_REGISTRY_IMAGE/spring-app:$CI_COMMIT_REF_NAME
+    - docker push $CI_REGISTRY_IMAGE/angular-app:$CI_COMMIT_REF_NAME
   tags:
     - localrunner
     - localshell
@@ -62,6 +67,10 @@ deploy:
 #    - ./generate_release.sh
 #    - echo "Generated release notes:"
 #    - cat release_notes.md  # Affiche le contenu APRÈS l'exécution du script
+    - docker pull $CI_REGISTRY_IMAGE/spring-app:$CI_COMMIT_REF_NAME
+    - docker pull $CI_REGISTRY_IMAGE/angular-app:$CI_COMMIT_REF_NAME
+    - docker tag $CI_REGISTRY_IMAGE/spring-app:$CI_COMMIT_REF_NAME spring-app
+    - docker tag $CI_REGISTRY_IMAGE/angular-app:$CI_COMMIT_REF_NAME angular-app
     - echo "Deploying to Docker Desktop..."
     - docker-compose -f docker-compose.yml up -d
 #    - echo "Copying release notes to container..."
@@ -72,7 +81,7 @@ deploy:
 #    - docker exec springboot cat /release_notes.md
   environment:
     name: dev
-    url: http://localhost:7070  
+    url: http://localhost:4200 
   tags:
     - localrunner
     - localshell 
