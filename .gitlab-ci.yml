@@ -70,9 +70,9 @@ deploy:
 #    - docker exec springboot chmod 644 /release_notes.md # Permissions (lecture et écriture pour l'utilisateur, lecture pour le groupe et les autres)
 #    - echo "Checking if release notes are in the container..."
 #    - docker exec springboot cat /release_notes.md
-  environment:
-    name: dev
-    url: http://localhost:7070  
+#  environment:
+#    name: dev
+#    url: http://localhost:7070  
   tags:
     - localrunner
     - localshell 
