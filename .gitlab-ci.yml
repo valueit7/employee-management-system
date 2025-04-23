@@ -72,7 +72,7 @@ deploy:
     - docker exec springboot cat /release_notes.md
   environment:
     name: dev
-    url: http://localhost  
+    url: http://localhost:7070  
   tags:
     - localrunner
     - localshell 
