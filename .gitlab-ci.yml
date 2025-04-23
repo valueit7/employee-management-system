@@ -24,7 +24,7 @@ before_script:
   - which bash
   - bash --version
 #  - echo "Logging in to GitLab Container Registry..."
-  - apt-get update && apt-get install -y docker-compose jq curl  # Use apt-get to install docker-compose, jq et curl
+  - apt-get update && apt-get install -y docker compose jq curl  # Use apt-get to install docker-compose, jq et curl
 #  - echo "Logging in to GitLab Container Registry..."
 #  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   - echo "Available shells:"
