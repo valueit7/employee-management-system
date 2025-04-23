@@ -55,21 +55,21 @@ build:
 deploy:
   stage: deploy
   script:
-    - set -e  # Arrête le script immédiatement si une commande échoue
-    - echo "Generating release notes..."
-    - dos2unix generate_release.sh
-    - chmod +x generate_release.sh
-    - ./generate_release.sh
-    - echo "Generated release notes:"
-    - cat release_notes.md  # Affiche le contenu APRÈS l'exécution du script
+#    - set -e  # Arrête le script immédiatement si une commande échoue
+#    - echo "Generating release notes..."
+#    - dos2unix generate_release.sh
+#    - chmod +x generate_release.sh
+#    - ./generate_release.sh
+#    - echo "Generated release notes:"
+#    - cat release_notes.md  # Affiche le contenu APRÈS l'exécution du script
     - echo "Deploying to Docker Desktop..."
     - docker-compose -f docker-compose.yml up -d
-    - echo "Copying release notes to container..."
-    - docker cp release_notes.md springboot:/release_notes.md
-    - echo "Setting correct file permissions..."
-    - docker exec springboot chmod 644 /release_notes.md # Permissions (lecture et écriture pour l'utilisateur, lecture pour le groupe et les autres)
-    - echo "Checking if release notes are in the container..."
-    - docker exec springboot cat /release_notes.md
+#    - echo "Copying release notes to container..."
+#    - docker cp release_notes.md springboot:/release_notes.md
+#    - echo "Setting correct file permissions..."
+#    - docker exec springboot chmod 644 /release_notes.md # Permissions (lecture et écriture pour l'utilisateur, lecture pour le groupe et les autres)
+#    - echo "Checking if release notes are in the container..."
+#    - docker exec springboot cat /release_notes.md
   environment:
     name: dev
     url: http://localhost:7070  
