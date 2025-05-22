@@ -2,8 +2,18 @@ image: ubuntu:latest
 
 stages:
   - noop
+  - tag
 
 noop_job:
   stage: noop
   script:
     - echo "This job does nothing."
+
+tag_job:
+  stage: tag
+  script:
+    - LAST_TAG=$(git describe --tags --abbrev=0)
+    - NEW_TAG=$(echo $LAST_TAG | awk -F. -v OFS=. '{$NF++;print}')
+    - git tag -a "$NEW_TAG" -m "Release version $NEW_TAG"
+    - git push origin "$NEW_TAG"
+  
