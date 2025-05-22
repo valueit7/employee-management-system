@@ -11,8 +11,11 @@ noop_job:
 
 tag_job:
   stage: tag
+  tags:
+    - localrunner
+    - localshell
   script:
     - apt-get update && apt-get install -y git  # Installer git
     - git fetch --tags  # Récupérer les tags existants
-    - git tag -a "Release-1.0.0" -m "Release version 1.0.0"  # Utiliser un tiret
-    - git push origin "Release-1.0.0"
+    - git tag -a "Release-1.0.0" -m "Release version 1.0.0"  # Créer le tag
+    - git push origin "Release-1.0.0"  # Pousser le tag
