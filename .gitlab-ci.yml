@@ -11,11 +11,9 @@ noop_job:
 
 tag_job:
   stage: tag
-  tags:
-    - localrunner
-    - localshell
   script:
-    - apt-get update && apt-get install -y git  # Installer git
-    - git fetch --tags  # Récupérer les tags existants
-    - git tag -a "Release-1.0.0" -m "Release version 1.0.0"  # Créer le tag
-    - git push origin "Release-1.0.0"  # Pousser le tag
+    - apt-get update && apt-get install -y git
+    - git fetch --tags
+    - git remote set-url origin "https://oauth2:${gitlab-jira}@gitlab.com/valueit1/employee-management-system.git"  # Utiliser le token
+    - git tag -a "Release-1.0.0" -m "Release version 1.0.0"
+    - git push origin "Release-1.0.0"
