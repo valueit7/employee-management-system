@@ -8,14 +8,5 @@ noop_job:
   stage: noop
   script:
     - echo "This job does nothing."
-
-tag_job:
-  stage: tag
-  script:
-    - apt-get update && apt-get install -y git  # Installer git
-    - git fetch --tags  # Récupérer les tags existants
-    - git remote set-url origin "https://oauth2:${gitlab-jira}@gitlab.com/valueit1/employee-management-system.git"  # Configurer l'URL
-    - git config --global user.email "valueit7@gmail.com"  # Configurer l'email
-    - git config --global user.name "Value it"  # Configurer le nom
-    - git tag -a "Release-1.0.0" -m "Release version 1.0.0"  # Créer le tag
-    - git push origin "Release-1.0.0"  # Pousser le tag
+  tags:
+    - Release1.0.0
