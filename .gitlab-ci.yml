@@ -8,6 +8,5 @@ noop_job:
   script:
     - echo "This job does nothing."
   tags:
-    - Release1.0.0
     - localrunner  
     - localshell   
