@@ -57,7 +57,9 @@ deploy:
   only:
     - main
   variables:
-    RELEASE_VERSION: "Release 1.0.0"  
+    RELEASE_VERSION: "Release 1.0.0"
+   script:
+    - echo "Deploying Release $RELEASE_VERSION to Prod environment"   
   
 
 
