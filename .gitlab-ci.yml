@@ -3,90 +3,61 @@ image: ubuntu:latest
 services:
   - docker:dind
 
-variables:
-  DOCKER_DRIVER: overlay2
-  DOCKER_TLS_CERTDIR: ""
-#  REGISTRY: registry.gitlab.com/aymch/employee-management-system
-#  MYSQL_IMAGE: $REGISTRY/mysql
-#  BACKEND_IMAGE: $REGISTRY/spring-app
-#  FRONTEND_IMAGE: $REGISTRY/angular-app
+#variables:
+#  DOCKER_DRIVER: overlay2
+#  DOCKER_TLS_CERTDIR: ""
 
 #before_script:
-#  - echo "Logging in to GitLab Container Registry..."
-#  - echo "Installing Docker Compose..."
-#  - apk add --no-cache docker-compose
-#  - echo "Logging in to GitLab Container Registry..."
-#  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-
-before_script:
-  - echo "Forcing bash shell..."
-  - export SHELL=/bin/bash
-  - which bash
-  - bash --version
-#  - echo "Logging in to GitLab Container Registry..."
-  - apt-get update && apt-get install -y docker-compose jq curl  # Use apt-get to install docker-compose, jq et curl
-#  - echo "Logging in to GitLab Container Registry..."
-#  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-  - echo "Available shells:"
-  - cat /etc/shells
-  - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+ # - echo "Forcing bash shell..."
+  #- export SHELL=/bin/bash
+  #- which bash
+  #- bash --version
+  #- apt-get update && apt-get install -y docker-compose jq curl  # Use apt-get to install docker-compose, jq et curl
+  #- echo "Available shells:"
+  #- cat /etc/shells
+  #- docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
 
 
 
 stages:
-  - build
+  #- build
   - deploy
 
 # Build images with Docker Compose
-build:
-  stage: build
-  script:
-    - docker-compose -f docker-compose.yml build
-#    - docker tag spring-app $REGISTRY/spring-app:$CI_COMMIT_REF_NAME
-#    - docker tag angular-app $REGISTRY/angular-app:$CI_COMMIT_REF_NAME
-#    - docker push $REGISTRY/spring-app:$CI_COMMIT_REF_NAME
-#    - docker push $REGISTRY/angular-app:$CI_COMMIT_REF_NAME
-    - docker tag spring-app $CI_REGISTRY_IMAGE/spring-app:$CI_COMMIT_REF_NAME
-    - docker tag angular-app $CI_REGISTRY_IMAGE/angular-app:$CI_COMMIT_REF_NAME
-    - docker push $CI_REGISTRY_IMAGE/spring-app:$CI_COMMIT_REF_NAME
-    - docker push $CI_REGISTRY_IMAGE/angular-app:$CI_COMMIT_REF_NAME
-  tags:
-    - localrunner
-    - localshell
-  only:
-    - main  
+#build:
+#  stage: build
+#  script:
+#    - docker-compose -f docker-compose.yml build
+#    - docker tag spring-app $CI_REGISTRY_IMAGE/spring-app:$CI_COMMIT_REF_NAME
+#    - docker tag angular-app $CI_REGISTRY_IMAGE/angular-app:$CI_COMMIT_REF_NAME
+#    - docker push $CI_REGISTRY_IMAGE/spring-app:$CI_COMMIT_REF_NAME
+#    - docker push $CI_REGISTRY_IMAGE/angular-app:$CI_COMMIT_REF_NAME
+#  tags:
+#    - localrunner
+#    - localshell
+#  only:
+#    - main  
 
 # Deploy images locally
 deploy:
   stage: deploy
   script:
-#    - set -e  # Arrête le script immédiatement si une commande échoue
-#    - echo "Generating release notes..."
-#    - dos2unix generate_release.sh
-#    - chmod +x generate_release.sh
-#    - ./generate_release.sh
-#    - echo "Generated release notes:"
-#    - cat release_notes.md  # Affiche le contenu APRÈS l'exécution du script
-    - docker pull $CI_REGISTRY_IMAGE/spring-app:$CI_COMMIT_REF_NAME
-    - docker pull $CI_REGISTRY_IMAGE/angular-app:$CI_COMMIT_REF_NAME
-    - docker tag $CI_REGISTRY_IMAGE/spring-app:$CI_COMMIT_REF_NAME spring-app
-    - docker tag $CI_REGISTRY_IMAGE/angular-app:$CI_COMMIT_REF_NAME angular-app
-    - echo "Deploying to Docker Desktop..."
-    - docker-compose -f docker-compose.yml up -d
-#    - echo "Copying release notes to container..."
-#    - docker cp release_notes.md springboot:/release_notes.md
-#    - echo "Setting correct file permissions..."
-#    - docker exec springboot chmod 644 /release_notes.md # Permissions (lecture et écriture pour l'utilisateur, lecture pour le groupe et les autres)
-#    - echo "Checking if release notes are in the container..."
-#    - docker exec springboot cat /release_notes.md
+#    - docker pull $CI_REGISTRY_IMAGE/spring-app:$CI_COMMIT_REF_NAME
+#    - docker pull $CI_REGISTRY_IMAGE/angular-app:$CI_COMMIT_REF_NAME
+#    - docker tag $CI_REGISTRY_IMAGE/spring-app:$CI_COMMIT_REF_NAME spring-app
+#    - docker tag $CI_REGISTRY_IMAGE/angular-app:$CI_COMMIT_REF_NAME angular-app
+#    - echo "Deploying to Docker Desktop..."
+#    - docker-compose -f docker-compose.yml up -d
   environment:
-    name: dev
+    name: Prod
     url: http://localhost:4200 
   tags:
     - localrunner
     - localshell 
   only:
     - main
+  variables:
+    RELEASE_VERSION: "Release 1.0.0"  
   
 
 
