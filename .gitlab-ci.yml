@@ -42,6 +42,7 @@ stages:
 deploy:
   stage: deploy
   script:
+    - echo "Deploying Release $RELEASE_VERSION to Prod environment"
 #    - docker pull $CI_REGISTRY_IMAGE/spring-app:$CI_COMMIT_REF_NAME
 #    - docker pull $CI_REGISTRY_IMAGE/angular-app:$CI_COMMIT_REF_NAME
 #    - docker tag $CI_REGISTRY_IMAGE/spring-app:$CI_COMMIT_REF_NAME spring-app
@@ -58,8 +59,7 @@ deploy:
     - main
   variables:
     RELEASE_VERSION: "Release 1.0.0"
-   script:
-    - echo "Deploying Release $RELEASE_VERSION to Prod environment"   
+       
   
 
 
