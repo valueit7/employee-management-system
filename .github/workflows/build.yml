@@ -3,7 +3,7 @@ name: Simple Build
 on:
   push:
     branches:
-      - EMS-15-test20
+      - main
 
 jobs:
   build:
