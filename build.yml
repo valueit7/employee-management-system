@@ -1,0 +1,19 @@
+name: Simple Build
+
+on:
+  push:
+    branches:
+      - EMS-15-test20
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run a simple build command
+        run: echo "Building for branch EMS-15-test20"
+
+  
