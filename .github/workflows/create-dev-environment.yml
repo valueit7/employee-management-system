@@ -26,7 +26,7 @@ jobs:
                 "deployment_branch_policy": {
                     "protected_branches": false,
                     "custom_branch_policies": true,
-                    "branches": ["main"]  # Indique que l'environnement est basé sur la branche main
+                    "branches": ["main"]  # Lien vers la branche main
                 }
             }')
           echo "Response: $response"
