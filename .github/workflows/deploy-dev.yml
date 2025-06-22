@@ -1,0 +1,19 @@
+name: Deploy to Development Environment
+
+on:
+  workflow_dispatch:  # Allows manual triggering of the workflow
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: Dev
+      url: http://localhost:4200  # Replace with your actual deployment URL
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and Deploy
+        run: |
+          # Add your build and deployment commands here
