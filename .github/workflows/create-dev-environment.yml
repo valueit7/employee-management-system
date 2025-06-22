@@ -1,7 +1,7 @@
 name: Create Dev Environment
 
 on:
-  workflow_dispatch:  # Permet de déclencher manuellement le workflow
+  workflow_dispatch:  # Allows manual triggering of the workflow
 
 jobs:
   create_or_update_environment:
@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Create Dev Environment
         env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}  # Utilise le secret pour l'authentification
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}  # Uses the secret for authentication
         run: |
           echo "Creating or updating environment..."
           response=$(curl -L \
@@ -25,8 +25,7 @@ jobs:
                 "reviewers": [],
                 "deployment_branch_policy": {
                     "protected_branches": false,
-                    "custom_branch_policies": true,
-                    "branches": ["main"]  # Lien vers la branche main
+                    "custom_branch_policies": true
                 }
             }')
           echo "Response: $response"
