@@ -1,32 +1,32 @@
-name: Build and Push Docker Images
+#name: Build and Push Docker Images
 
-on:
-  workflow_dispatch:  # Allows manual triggering of the workflow
-  push:
-    branches:
-      - main
+#on:
+#  workflow_dispatch:  # Allows manual triggering of the workflow
+ # push:
+  #  branches:
+   #   - main
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+#jobs:
+ # build:
+  #  runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+   # steps:
+    #  - name: Checkout code
+     #   uses: actions/checkout@v2
 
-      - name: Log in to GitHub Package Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.MY_GITHUB_TOKEN }}
+      #- name: Log in to GitHub Package Registry
+       # uses: docker/login-action@v1
+        #with:
+         # registry: ghcr.io
+          #username: ${{ github.actor }}
+          #password: ${{ secrets.MY_GITHUB_TOKEN }}
 
-      - name: Build Docker Images
-        run: |
-          docker buildx build --tag ghcr.io/valueit7/employee-management-system/spring-app:latest ./emp_backend
-          docker buildx build --tag ghcr.io/valueit7/employee-management-system/angular-app:latest "./employee frontend final"
+      #- name: Build Docker Images
+       # run: |
+        #  docker buildx build --tag ghcr.io/valueit7/employee-management-system/spring-app:latest ./emp_backend
+         # docker buildx build --tag ghcr.io/valueit7/employee-management-system/angular-app:latest "./employee frontend final"
 
-      - name: Push Docker Images
-        run: |
-          docker push ghcr.io/valueit7/employee-management-system/spring-app:latest
-          docker push ghcr.io/valueit7/employee-management-system/angular-app:latest
+      #- name: Push Docker Images
+       # run: |
+        #  docker push ghcr.io/valueit7/employee-management-system/spring-app:latest
+         # docker push ghcr.io/valueit7/employee-management-system/angular-app:latest
