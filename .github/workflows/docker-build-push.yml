@@ -1,10 +1,10 @@
 name: Build and Push Docker Images
 
 on:
+  workflow_dispatch:  # Allows manual triggering of the workflow
   push:
     branches:
       - main
-  workflow_dispatch:  # Allows manual triggering of the workflow
 
 jobs:
   build:
@@ -23,10 +23,10 @@ jobs:
 
       - name: Build Docker Images
         run: |
-          docker buildx -t ghcr.io/${{ github.repository }}/spring-app:latest ./emp_backend
-          docker buildx -t ghcr.io/${{ github.repository }}/angular-app:latest ./employee frontend final
+          docker buildx build --tag ghcr.io/valueit7/employee-management-system/spring-app:latest ./emp_backend
+          docker buildx build --tag ghcr.io/valueit7/employee-management-system/angular-app:latest ./employee frontend final
 
       - name: Push Docker Images
         run: |
-          docker push ghcr.io/${{ github.repository }}/spring-app:latest
-          docker push ghcr.io/${{ github.repository }}/angular-app:latest
+          docker push ghcr.io/valueit7/employee-management-system/spring-app:latest
+          docker push ghcr.io/valueit7/employee-management-system/angular-app:latest
