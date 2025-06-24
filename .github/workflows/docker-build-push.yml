@@ -23,8 +23,8 @@ jobs:
 
       - name: Build Docker Images
         run: |
-          docker build -t ghcr.io/${{ github.repository }}/spring-app:latest ./emp_backend
-          docker build -t ghcr.io/${{ github.repository }}/angular-app:latest ./employee frontend final
+          docker buildx -t ghcr.io/${{ github.repository }}/spring-app:latest ./emp_backend
+          docker buildx -t ghcr.io/${{ github.repository }}/angular-app:latest ./employee frontend final
 
       - name: Push Docker Images
         run: |
