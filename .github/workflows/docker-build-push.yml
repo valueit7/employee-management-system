@@ -24,7 +24,7 @@ jobs:
       - name: Build Docker Images
         run: |
           docker buildx build --tag ghcr.io/valueit7/employee-management-system/spring-app:latest ./emp_backend
-          docker buildx build --tag ghcr.io/valueit7/employee-management-system/angular-app:latest ./employee frontend final
+          docker buildx build --tag ghcr.io/valueit7/employee-management-system/angular-app:latest "./employee frontend final"
 
       - name: Push Docker Images
         run: |
